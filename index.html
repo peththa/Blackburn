@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKBURN | Fashion Store</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap" rel="stylesheet">
+
+    <!-- CSS Styles -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(135deg, #000, #333);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        header {
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            font-size: 4rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+            text-transform: uppercase;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            margin-top: 10px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            animation: fadeIn 2s ease-in-out 1s both;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #fff;
+            color: #000;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 30px;
+            letter-spacing: 2px;
+            transition: 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #ff7e5f;
+            color: #fff;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 1rem;
+            color: #aaa;
+        }
+
+        /* Media Queries for Mobile Responsiveness */
+        @media (min-width: 768px) {
+            .content {
+                flex-direction: row;
+            }
+
+            header h1 {
+                font-size: 5rem;
+            }
+
+            header p {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Keyframes for Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>BLACKBURN</h1>
+        <p>Unleash Your Style with Premium Clothing</p>
+    </header>
+
+    <div class="content">
+        <a href="#" class="btn">Shop Men</a>
+        <a href="#" class="btn">Shop Women</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 BLACKBURN. All Rights Reserved.</p>
+    </footer>
+
+</body>
+
+</html>
