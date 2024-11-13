@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACKBURN | Payment & Shipping Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(135deg, #000, #333);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: auto;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #333;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input.valid {
+            border-color: #28a745; /* Green border */
+        }
+
+        input.invalid {
+            border-color: #dc3545; /* Red border */
+        }
+
+        button {
+            background-color: #fff;
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff7e5f;
+            color: #fff;
+        }
+
+        .error {
+            color: #ff4d4d;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .card-type {
+            font-size: 1rem;
+            color: #bbb;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Payment & Shipping Details</h1>
+    <form id="paymentForm">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Enter your full name" required>
+        <div id="nameError" class="error"></div>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <div id="emailError" class="error"></div>
+
+        <label for="address">Shipping Address</label>
+        <input type="text" id="address" placeholder="123 Main St" required>
+        <div id="addressError" class="error"></div>
+
+        <label for="city">City</label>
+        <input type="text" id="city" placeholder="Enter your city" required>
+        <div id="cityError" class="error"></div>
+
+        <label for="state">State/Province</label>
+        <input type="text" id="state" placeholder="Enter your state/province" required>
+        <div id="stateError" class="error"></div>
+
+        <label for="zip">ZIP/Postal Code</label>
+        <input type="text" id="zip" placeholder="Enter ZIP/Postal code" required>
+        <div id="zipError" class="error"></div>
+
+        <label for="cardNumber">Card Number</label>
+        <input type="password" id="cardNumber" placeholder="1234 5678 9101 1121" required oninput="maskCardNumber(); detectCardType(); validateCardNumber();">
+        <div class="card-type" id="cardType"></div>
+        <div id="cardNumberError" class="error"></div>
+
+        <label for="expiryDate">Expiry Date</label>
+        <input type="text" id="expiryDate" placeholder="MM/YY" required oninput="validateExpiryDate()">
+        <div id="expiryDateError" class="error"></div>
+
+        <label for="cvc">CVC</label>
+        <input type="number" id="cvc" placeholder="123" required oninput="validateCVC()">
+        <div id="cvcError" class="error"></div>
+
+        <button type="submit">Submit Payment</button>
+    </form>
+
+    <script>
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Trigger validation for all fields
+            const validName = validateName();
+            const validEmail = validateEmail();
+            const validAddress = validateAddress();
+            const validCity = validateCity();
+            const validState = validateState();
+            const validZip = validateZip();
+            const validCardNumber = validateCardNumber();
+            const validExpiryDate = validateExpiryDate();
+            const validCVC = validateCVC();
+
+            // Check if all fields are valid before proceeding
+            if (validName && validEmail && validAddress && validCity && validState && validZip && validCardNumber && validExpiryDate && validCVC) {
+                alert('All details are valid. Payment submitted successfully!');
+                // You can add form submission logic here (e.g., send to server)
+            }
+        });
+
+        function validateName() {
+            const nameField = document.getElementById('name');
+            if (nameField.value.trim() === '') {
+                nameField.classList.add('invalid');
+                nameField.classList.remove('valid');
+                document.getElementById('nameError').textContent = 'Name is required.';
+                return false;
+            } else {
+                nameField.classList.add('valid');
+                nameField.classList.remove('invalid');
+                document.getElementById('nameError').textContent = '';
+                return true;
+            }
+        }
+
+        function validateEmail() {
+            const emailField = document.getElementById('email');
+            const emailRegex = /\S+@\S+\.\S+/;
+            if (!emailRegex.test(emailField.value.trim())) {
+                emailField.classList.add('invalid');
+                emailField.classList.remove('valid');
+                document.getElementById('emailError').textContent = 'Invalid email format.';
+                return false;
+            } else {
+                emailField.classList.add('valid');
+                emailField.classList.remove('invalid');
+                document.getElementById('emailError').textContent = '';
+                return true;
+            }
+        }
+
+        function validateAddress() {
+            const addressField = document.getElementById('address');
+            if (addressField.value.trim() === '') {
+                addressField.classList.add('invalid');
+                addressField.classList.remove('valid');
+                document.getElementById('addressError').textContent = 'Address is required.';
+                return false;
+            } else {
+                addressField.classList.add('valid');
+                addressField.classList.remove('invalid');
+                document.getElementById('addressError').textContent = '';
+                return true;
+            }
+        }
+
+        function validateCity() {
+            const cityField = document.getElementById('city');
+            if (cityField.value.trim() === '') {
+                cityField.classList.add('invalid');
+                cityField.classList.remove('valid');
+                document.getElementById('cityError').textContent = 'City is required.';
+                return false;
+            } else {
+                cityField.classList.add('valid');
+                cityField.classList.remove('invalid');
+                document.getElementById('cityError').textContent = '';
+                return true;
+            }
+        }
+
+        function validateState() {
+            const stateField = document.getElementById('state');
+            if (stateField.value.trim() === '') {
+                stateField.classList.add('invalid');
+                stateField.classList.remove('valid');
+                document.getElementById('stateError').textContent = 'State/Province is required.';
+                return false;
+            } else {
+                stateField.classList.add('valid');
+                stateField.classList.remove('invalid');
+                document.getElementById('stateError').textContent = '';
+                return true;
+            }
+        }
+
+        function validateZip() {
+            const zipField = document.getElementById('zip');
+            if (zipField.value.trim() === '' || isNaN(zipField.value.trim())) {
+                zipField.classList.add('invalid');
+                zipField.classList.remove('valid');
+                document.getElementById('zipError').textContent = 'Valid ZIP/Postal code is required.';
+                return false;
+            } else {
+                zipField.classList.add('valid');
+                zipField.classList.remove('invalid');
+                document.getElementById('zipError').textContent = '';
+                return true;
+            }
+        }
+
+        // Existing functions for card number, expiry date, and CVC validation remain unchanged
+    </script>
+</body>
+
+</html>
